@@ -13,7 +13,7 @@ class Picture():
         gary_char = int((gary / alpha) * length)
         return ascii_char[gary_char]
 
-    def drew(self, pic_path, width, height):
+    def drew(self, pic_path, width = 200, height = 100):
         try:
             im = Image.open(pic_path)
             im = im.resize((width, height), Image.NEAREST)
