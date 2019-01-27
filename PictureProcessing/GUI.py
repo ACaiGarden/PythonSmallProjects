@@ -1,7 +1,9 @@
+# coding=gbk
 from PyQt5.QtWidgets import (QApplication, QPushButton,
                              QHBoxLayout, QVBoxLayout,
                              QWidget, QFileDialog,
-                             QLineEdit, QLabel)
+                             QLineEdit, QLabel,
+                             QMessageBox)
 import sys
 import re
 from Pillow import *
@@ -21,15 +23,18 @@ class GUI(QWidget):
 
         selectButton = QPushButton('Select Picture')
         turnButton = QPushButton('Turn')
+        introductionButton = QPushButton('Introduction')
+        #introductionButton.resize(100, 20)
 
         selectButton.clicked.connect(self.get_file)
         turnButton.clicked.connect(lambda :self.get_message())
+        introductionButton.clicked.connect(self.show_message)
 
         lb = QLabel('Picture\'s Path:')
         self.le = QLineEdit()
-        lb2 = QLabel('Picture width:')
+        lb2 = QLabel('Character Picture width:')
         self.le2 = QLineEdit()
-        lb3 = QLabel('Picture height:')
+        lb3 = QLabel('Character Picture height:')
         self.le3 = QLineEdit()
 
         hbox = QHBoxLayout()
@@ -51,13 +56,14 @@ class GUI(QWidget):
         vbox.addLayout(hbox3)
 
         vbox.addStretch(1)
+        vbox.addWidget(introductionButton)
         vbox.addWidget(turnButton)
         self.setLayout(vbox)
 
         self.show()
 
     def get_file(self):
-        url = QFileDialog.getOpenFileUrl(self, '选择图片', '', 'Images (*.png *.jpg *.jpeg)')
+        url = QFileDialog.getOpenFileUrl(self, 'ѡ��ͼƬ', '', 'Images (*.png *.jpg *.jpeg)')
 
         print(type(str(url[0])))
         print(url[0])
@@ -79,11 +85,20 @@ class GUI(QWidget):
 
         self.pillow.drew(pic_path, pic_width, pic_height)
 
+    def show_message(self):
+        QMessageBox.about(self, 'Introduction', 'This tiny program is coded by Python that '
+                                                'can convert normal picture to character picture.\n'
+                                                'To ensure the character picture quality, '
+                                                'please choose the picture that as simple as possible.\n'
+                                                'The landscape picture may a bad style for character picture.\n'
+                                                'The default size of character picture is (width:200 height:100),'
+                                                'you can input your own size for it.')
+'''
 if __name__ == '__main__':
-
     app = QApplication(sys.argv)
     g = GUI()
-    #print(g.get_file())
-    #print(type(g.get_file()))
     sys.exit(app.exec_())
-
+'''
+app = QApplication(sys.argv)
+g = GUI()
+sys.exit(app.exec_())

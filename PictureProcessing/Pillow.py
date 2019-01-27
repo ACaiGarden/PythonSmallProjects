@@ -1,3 +1,4 @@
+# coding=gbk
 from PIL import Image
 
 class Picture():
@@ -28,7 +29,7 @@ class Picture():
             with open(save_name, 'w') as f:
                 f.write(txt)
         except:
-            print('æ‰¾ä¸åˆ°ç›®æ ‡æ–‡ä»¶')
+            print('ÕÒ²»µ½Ä¿±êÎÄ¼ş')
             exit()
 
     def get_file_name(self, pic_path):
