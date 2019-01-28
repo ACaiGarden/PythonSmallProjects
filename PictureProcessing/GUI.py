@@ -65,18 +65,21 @@ class GUI(QWidget):
     def get_file(self):
         url = QFileDialog.getOpenFileUrl(self, 'Ñ¡ÔñÍ¼Æ¬', '', 'Images (*.png *.jpg *.jpeg)')
 
-        print(type(str(url[0])))
-        print(url[0])
-        result = re.search(r"(?<=PyQt5.QtCore.QUrl\('file:///)[\S]*[^')]", str(url[0])).group(0)
-        print(result)
-        self.le.setText(str(result))
-        self.pic_path = result
-        return result
+        #print(type(str(url[0])))
+        #print(url[0])
+        try:
+            result = re.search(r"(?<=PyQt5.QtCore.QUrl\('file:///)[\S]*[^')]", str(url[0])).group(0)
+            #print(result)
+            self.le.setText(str(result))
+            self.pic_path = result
+            return result
+        except:
+            pass
 
     def get_message(self):
         pic_path = self.pic_path
-        pic_width = int(self.le2.text())
-        pic_height = int(self.le3.text())
+        pic_width = abs(int(self.le2.text()))
+        pic_height = abs(int(self.le3.text()))
 
         if pic_width == '' or pic_height == '':
             #defualt
@@ -92,7 +95,8 @@ class GUI(QWidget):
                                                 'please choose the picture that as simple as possible.\n'
                                                 'The landscape picture may a bad style for character picture.\n'
                                                 'The default size of character picture is (width:200 height:100),'
-                                                'you can input your own size for it.')
+                                                'you can input your own size for it.\n\n'
+                                                'Written by XUXU')
 '''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
